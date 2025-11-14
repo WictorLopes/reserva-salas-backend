@@ -1,0 +1,8 @@
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.csproj.AssemblyReference.cache
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.AssemblyInfoInputs.cache
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.AssemblyInfo.cs
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.csproj.CoreCompileInputs.cache
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\wicto\OneDrive\Documents\reserva-salas-backend\ReservaSalas.Api\obj\Debug\net9.0\ReservaSalas.Api.sourcelink.json
