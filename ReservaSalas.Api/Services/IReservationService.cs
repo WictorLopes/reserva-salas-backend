@@ -1,10 +1,12 @@
-using ReservaSalas.Api.Models;
+using ReservaSalas.Api.Dtos;
+
+namespace ReservaSalas.Api.Services;
 
 public interface IReservationService
 {
-    Task<IEnumerable<Reservation>> GetAllAsync();
-    Task<Reservation?> GetByIdAsync(Guid id);
-    Task<Reservation> CreateAsync(Reservation entity);
-    Task<Reservation> UpdateAsync(Guid id, ReservationUpdateDto dto);
-    Task DeleteAsync(Guid id);
+    Task<IEnumerable<ReservationResponseDto>> GetAllAsync();
+    Task<ReservationResponseDto?> GetByIdAsync(int id);
+    Task<ReservationResponseDto> CreateAsync(ReservationCreateDto dto);
+    Task<ReservationResponseDto> UpdateAsync(int id, ReservationUpdateDto dto);
+    Task DeleteAsync(int id);
 }

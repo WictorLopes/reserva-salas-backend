@@ -2,17 +2,13 @@ namespace ReservaSalas.Api.Models;
 
 public class Reservation
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
-    public Guid LocationId { get; set; }
-    public Location? Location { get; set; }
-
-    public Guid RoomId { get; set; }
+    public int RoomId { get; set; }
     public Room? Room { get; set; }
 
     public DateTimeOffset Start { get; set; }
     public DateTimeOffset End { get; set; }
-
 
     public string Responsible { get; set; } = string.Empty;
 
@@ -21,6 +17,4 @@ public class Reservation
     public string? CoffeeDescription { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
-
-
 }

@@ -1,3 +1,5 @@
-public record RoomCreateDto(string Name, Guid LocationId);
-public record RoomUpdateDto(string Name, Guid LocationId);
-public record RoomResponseDto(Guid Id, string Name, Guid LocationId);
+namespace ReservaSalas.Api.Dtos;
+
+public record RoomCreateDto(string Name, int LocationId, int Capacity);
+public record RoomUpdateDto(string Name, int LocationId, int Capacity);
+public record RoomResponseDto(int Id, string Name, int LocationId, int Capacity);

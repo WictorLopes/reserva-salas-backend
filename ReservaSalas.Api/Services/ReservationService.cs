@@ -1,68 +1,64 @@
+using AutoMapper;
+using ReservaSalas.Api.Dtos;
 using ReservaSalas.Api.Models;
+using ReservaSalas.Api.Repositories;
+
+namespace ReservaSalas.Api.Services;
 
 public class ReservationService : IReservationService
 {
     private readonly IReservationRepository _repo;
+    private readonly IMapper _mapper;
 
-    public ReservationService(IReservationRepository repo)
+    public ReservationService(IReservationRepository repo, IMapper mapper)
     {
         _repo = repo;
+        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<Reservation>> GetAllAsync()
+    public async Task<IEnumerable<ReservationResponseDto>> GetAllAsync()
     {
-        return await _repo.GetAllAsync();
+        var list = await _repo.GetAllAsync();
+        return _mapper.Map<IEnumerable<ReservationResponseDto>>(list);
     }
 
-    public async Task<Reservation?> GetByIdAsync(Guid id)
+    public async Task<ReservationResponseDto?> GetByIdAsync(int id)
     {
-        return await _repo.GetByIdAsync(id);
+        var reservation = await _repo.GetByIdAsync(id);
+        return reservation == null ? null : _mapper.Map<ReservationResponseDto>(reservation);
     }
 
-    public async Task<Reservation> CreateAsync(Reservation entity)
+    public async Task<ReservationResponseDto> CreateAsync(ReservationCreateDto dto)
     {
-        bool conflict = await _repo.HasConflict(entity.RoomId, entity.Start, entity.End);
+        var entity = _mapper.Map<Reservation>(dto);
 
-        if (conflict)
+        if (await _repo.HasConflict(entity.RoomId, entity.Start, entity.End))
             throw new Exception("Já existe uma reserva nesse horário para esta sala.");
 
         await _repo.AddAsync(entity);
         await _repo.SaveAsync();
-        return entity;
+        return _mapper.Map<ReservationResponseDto>(entity);
     }
 
-    public async Task<Reservation> UpdateAsync(Guid id, ReservationUpdateDto dto)
+    public async Task<ReservationResponseDto> UpdateAsync(int id, ReservationUpdateDto dto)
     {
         var existing = await _repo.GetByIdAsync(id);
+        if (existing == null) throw new Exception("Reserva não encontrada.");
 
-        if (existing == null)
-            throw new Exception("Reserva não encontrada.");
+        _mapper.Map(dto, existing);
 
-        // Atualiza os campos permitidos
-        existing.Start = dto.Start;
-        existing.End = dto.End;
-        existing.Responsible = dto.Responsible;
-        existing.CoffeeRequested = dto.CoffeeRequested;
-        existing.CoffeeQuantity = dto.CoffeeQuantity;
-        existing.CoffeeDescription = dto.CoffeeDescription;
-
-        bool conflict = await _repo.HasConflict(existing.RoomId, dto.Start, dto.End, id);
-
-        if (conflict)
+        if (await _repo.HasConflict(existing.RoomId, existing.Start, existing.End, id))
             throw new Exception("Já existe uma reserva nesse horário para esta sala.");
 
         _repo.Update(existing);
         await _repo.SaveAsync();
-
-        return existing;
+        return _mapper.Map<ReservationResponseDto>(existing);
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(int id)
     {
         var existing = await _repo.GetByIdAsync(id);
-
-        if (existing == null)
-            throw new Exception("Reserva não encontrada.");
+        if (existing == null) throw new Exception("Reserva não encontrada.");
 
         _repo.Delete(existing);
         await _repo.SaveAsync();
